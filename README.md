@@ -207,5 +207,5 @@ or supplier delays. You can adjust this in `forecasting_engine.py`.
 
 ---
 
-📩 **Reach out via [LinkedIn](www.linkedin.com/in/irfan-hyder-03885a142) or open an issue.**
+📩 **Reach out via [LinkedIn]((https://www.linkedin.com/in/irfan-hyder-03885a142/)) or open an issue.**
 
