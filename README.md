@@ -3,14 +3,7 @@
 Upload your order export → get a 30–90 day sales forecast, top-product breakdown,
 and inventory reorder recommendations — in under 60 seconds.
 
-[Features](#-features) • [Demo](#-demo) • [Quickstart](#-quickstart) • [How It Works](#-how-it-works) • [ML Techniques](#-ml-techniques-used) • [Project Structure](#-project-structure) • [Roadmap](#-roadmap)
-
-</div>
-
----
-
 ## 🧩 The Problem It Solves
-
 Most small e-commerce store owners manage inventory with gut feeling and spreadsheets.
 The result:
 
@@ -20,8 +13,6 @@ The result:
 
 This tool replaces all of that with a machine learning forecast built specifically on
 **your store's historical data** — not generic industry averages.
-
----
 
 ## ✨ Features
 
@@ -36,8 +27,6 @@ This tool replaces all of that with a machine learning forecast built specifical
 | ✅ **Model Accuracy Reporting** | MAE, MAPE, and R² computed on a held-out validation period so you know exactly how trustworthy the forecast is |
 | ⬇️ **CSV Download** | Export the full forecast as a downloadable CSV |
 
----
-
 ## 🎬 Demo
 
 ### Upload → Forecast in seconds
@@ -45,7 +34,6 @@ This tool replaces all of that with a machine learning forecast built specifical
 ```
 Upload order CSV  →  Auto-detect columns  →  Train model  →  Forecast + Insights
 ```
-
 ### Sample Forecast Output
 
 | Date       | Forecasted Sales ($) |
@@ -63,23 +51,15 @@ Upload order CSV  →  Auto-detect columns  →  Train model  →  Forecast + In
 > Black Friday, Christmas, and seasonal demand patterns.
 
 ---
-
 ## 🚀 Quickstart
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/<your-username>/sales-forecasting-tool.git
-cd sales-forecasting-tool
-```
-
-### 2. Install dependencies
+---
+### 1. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run the app
+### 2. Run the app
 
 ```bash
 streamlit run app.py
@@ -87,21 +67,6 @@ streamlit run app.py
 
 The app opens at `http://localhost:8501`.
 Upload `data/ecommerce_orders.csv` to see a live demo instantly.
-
----
-
-## 📋 Requirements
-
-```
-streamlit>=1.35.0
-pandas>=2.0.0
-numpy>=1.26.0
-scikit-learn>=1.3.0
-matplotlib>=3.8.0
-```
-
-> Python 3.10 or higher is recommended.
-
 ---
 
 ## 🗂️ Supported CSV Formats
@@ -117,17 +82,13 @@ Name, Email, Created at, Lineitem name, Lineitem quantity, Lineitem price, Total
 ```
 Order ID, Order Date, Product, Quantity, Unit Price, Order Total
 ```
-
 ### Generic / Custom Format
 Any CSV with at minimum:
 - A **date** column (called anything: `date`, `order_date`, `created_at`, etc.)
 - A **sales** column (called anything: `total`, `amount`, `revenue`, etc.)
   — OR — a **quantity** + **unit price** pair to compute sales from
-
 ---
-
 ## ⚙️ How It Works
-
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                        FULL PIPELINE                                │
@@ -165,7 +126,6 @@ Any CSV with at minimum:
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
 ```
-
 ---
 
 ## 🤖 ML Techniques Used
@@ -182,9 +142,7 @@ Any CSV with at minimum:
 | **Feature Importance** | Explain which signals drive the model's predictions (interpretability) |
 
 ---
-
 ## 📁 Project Structure
-
 ```
 sales-forecasting-tool/
 │
@@ -200,53 +158,6 @@ sales-forecasting-tool/
                               # Christmas surge, New Year fitness boost,
                               # Valentine's Day gift spike
 ```
-
----
-
-## 🧪 Use the Engine Without the UI
-
-`forecasting_engine.py` has zero Streamlit dependencies and can be
-imported directly into any Python script or notebook:
-
-```python
-import pandas as pd
-from forecasting_engine import (
-    detect_columns,
-    load_and_aggregate,
-    train_model,
-    forecast_future,
-    generate_reorder_recommendations,
-)
-
-# Load your order export
-df = pd.read_csv("my_shopify_orders.csv")
-
-# Auto-detect columns
-col_map = detect_columns(df)
-
-# Aggregate to daily sales
-daily = load_and_aggregate(df, col_map)
-
-# Train the forecasting model
-model, metrics, _ = train_model(daily)
-print(f"Validation MAPE: {metrics['mape']*100:.1f}%")
-print(f"R²: {metrics['r2']:.3f}")
-
-# Forecast the next 30 days
-forecast = forecast_future(model, daily, horizon=30)
-print(forecast)
-
-# Inventory recommendation
-rec = generate_reorder_recommendations(
-    forecast,
-    current_stock=5000,
-    lead_time_days=14
-)
-print(f"Reorder now: {rec['should_reorder_now']}")
-print(f"Stockout in: {rec['days_until_stockout']} days")
-```
-
----
 
 ## 📊 Model Performance (on included demo dataset)
 
@@ -266,29 +177,13 @@ print(f"Stockout in: {rec['days_until_stockout']} days")
 ## 📦 Inventory Planning Formula
 
 The reorder recommendation uses classical inventory management math:
-
 ```
 Reorder Point = Avg Daily Demand × (Lead Time Days + Safety Stock Days)
 
 Recommended Order Qty = Avg Daily Demand × (Lead Time + Safety Stock + 30 days)
 ```
-
 `Safety Stock` defaults to 7 days as a buffer against demand spikes
 or supplier delays. You can adjust this in `forecasting_engine.py`.
-
----
-
-## 🔮 Roadmap
-
-- [ ] Per-SKU / per-product level forecasts
-- [ ] XGBoost / LightGBM model option (faster, often more accurate)
-- [ ] Prophet integration for automatic changepoint detection
-- [ ] Promotional impact analysis (flag sale periods, measure lift)
-- [ ] Email/Slack reorder alerts
-- [ ] Multi-store comparison dashboard
-- [ ] `.xlsx` and `.parquet` file support
-- [ ] Confidence intervals on forecast (upper/lower bounds)
-
 ---
 
 ## 🤝 Contributing
@@ -300,33 +195,6 @@ Pull requests and issues are welcome.
 3. Commit your changes (`git commit -m 'Add your feature'`)
 4. Push to the branch (`git push origin feature/your-feature`)
 5. Open a Pull Request
-
 ---
-
-## 💼 Custom Development
-
-Need this tool customized for your business or your client's store?
-
-- Per-product forecasting per SKU
-- Integration with Shopify/WooCommerce API (live data, no CSV export needed)
-- Automated weekly forecast emails
-- Custom dashboard with your branding
 
 📩 **Reach out via [LinkedIn](https://linkedin.com/in/your-profile) or open an issue.**
-
----
-
-## 📄 License
-
-MIT License — free to use, modify, and distribute.
-See [LICENSE](LICENSE) for details.
-
----
-
-<div align="center">
-
-⭐ **If this project saved you time or helped you land a client, consider starring the repo!**
-
-Made with ❤️ and lots of ☕ by [Your Name](https://github.com/your-username)
-
-</div>
